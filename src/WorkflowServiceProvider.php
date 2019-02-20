@@ -34,11 +34,6 @@ class WorkflowServiceProvider extends ServiceProvider
     */
     public function register()
     {
-        $this->mergeConfigFrom(
-            $this->configPath(),
-            'workflow'
-        );
-
         $this->commands($this->commands);
 
         $this->app->singleton(
@@ -51,15 +46,5 @@ class WorkflowServiceProvider extends ServiceProvider
     protected function configPath()
     {
         return __DIR__ . '/../config/workflow.php';
-    }
-
-    /**
-    * Get the services provided by the provider.
-    *
-    * @return array
-    */
-    public function provides()
-    {
-        return ['workflow'];
     }
 }
