@@ -63,15 +63,17 @@ class WorkflowSubscriber implements EventSubscriberInterface
 
     public function enteredEvent(Event $event)
     {
-        $places       = $event->getTransition()->getTos();
-        $workflowName = $event->getWorkflowName();
+        if (null !== ($transition = $event->getTransition())) {
+            $places       = $transition->getTos();
+            $workflowName = $event->getWorkflowName();
 
-        event(new EnteredEvent($event));
-        event('workflow.entered', $event);
-        event(sprintf('workflow.%s.entered', $workflowName), $event);
+            event(new EnteredEvent($event));
+            event('workflow.entered', $event);
+            event(sprintf('workflow.%s.entered', $workflowName), $event);
 
-        foreach ($places as $place) {
-            event(sprintf('workflow.%s.entered.%s', $workflowName, $place), $event);
+            foreach ($places as $place) {
+                event(sprintf('workflow.%s.entered.%s', $workflowName, $place), $event);
+            }
         }
     }
 

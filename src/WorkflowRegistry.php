@@ -47,7 +47,7 @@ class WorkflowRegistry
         $this->config = $config;
         $this->dispatcher = new EventDispatcher();
 
-        $subscriber = new WorkflowSubscriber();
+        $subscriber = new WorkflowSubscriber($this->dispatcher);
         $this->dispatcher->addSubscriber($subscriber);
 
         foreach ($this->config as $name => $workflowData) {
